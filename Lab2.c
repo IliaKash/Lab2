@@ -14,24 +14,25 @@
 
 /**
  *  \brief Writes contents of the buffer to the specified file.
- *  Exits, if any errors occur while opening the file or writing to it.
  *  @param buffer Buffer, which will be written to the file.
  *  @param buffer_size Size of the buffer.
  *  @param path File, which will be filled with the contents of the buffer.
+ *  @param return True, if writing was successful, false otherwise.
  */
-void write_file(const char *buffer, size_t buffer_size, const char *path) {
+bool write_file(const char *buffer, size_t buffer_size, const char *path) {
   FILE *file = fopen(path, "wb");
   if (file == NULL) {
     fprintf(stderr, "Error opening file: %s\n", path);
-    exit(EXIT_FAILURE);
+    return false;
   }
   size_t bytes_written = fwrite(buffer, 1, buffer_size, file);
   if ((bytes_written != buffer_size) || ferror(file)) {
     fprintf(stderr, "Error writing to file: %s\n", path);
     fclose(file);
-    exit(EXIT_FAILURE);
+    return false;
   }
   fclose(file);
+  return true;
 }
 
 /**
@@ -146,7 +147,11 @@ int main(int argc, char** argv) {
     }
 
     /// Write encrypted data to file as a hexadecimal string.
-    write_file(ak_ptr_to_hexstr( fileBuf, size, ak_false ), size*2, outputFileFlag ? "encrypted" : outputFile);
+    if(!write_file(ak_ptr_to_hexstr( fileBuf, size, ak_false ), size*2, outputFileFlag ? "encrypted" : outputFile)) {
+      ak_bckey_destroy(&ctx);
+      ak_libakrypt_destroy();
+      return EXIT_FAILURE;
+    };
   } else {
     char encBuf[FILE_LENGTH];
     memset(encBuf, 0, FILE_LENGTH);
@@ -160,7 +165,11 @@ int main(int argc, char** argv) {
     }
 
     /// Write decrypted data to file.
-    write_file(encBuf, size / 2, outputFileFlag ? "decrypted" : outputFile);
+    if(!write_file(encBuf, size / 2, outputFileFlag ? "decrypted" : outputFile)) {
+      ak_bckey_destroy(&ctx);
+      ak_libakrypt_destroy();
+      return EXIT_FAILURE;
+    }
   }
 
   /// Destroy context of the key & libakrypt instance.
