@@ -1,0 +1,144 @@
+\hypertarget{Lab2_8c}{}\doxysection{Lab2.\+c File Reference}
+\label{Lab2_8c}\index{Lab2.c@{Lab2.c}}
+
+
+Implements encryption and decription of files. Expected encrypted data input / output format is hexadecimal string.  
+
+
+{\ttfamily \#include $<$getopt.\+h$>$}\newline
+{\ttfamily \#include $<$libakrypt.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for Lab2.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Lab2_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Lab2_8c_a35c91ec6e2fa6e01ef83222bf219f057}{ARGUMENT\+\_\+\+LENGTH}}~32
+\item 
+\#define \mbox{\hyperlink{Lab2_8c_ac1b08ec9ef686f8e672f0becf2f80cca}{FILE\+\_\+\+LENGTH}}~2048
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{Lab2_8c_a38667d56027c898fe01f2853ae6246d1}{write\+\_\+file}} (const char $\ast$buffer, size\+\_\+t buffer\+\_\+size, const char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Writes contents of the buffer to the specified file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{Lab2_8c_a779adfc7296cb0ec050ec71273cd509a}{read\+\_\+file}} (char $\ast$buffer, size\+\_\+t buffer\+\_\+size, const char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Reads contents of the file to the buffer. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Lab2_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Applications entry point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements encryption and decription of files. Expected encrypted data input / output format is hexadecimal string. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Lab2_8c_a35c91ec6e2fa6e01ef83222bf219f057}\label{Lab2_8c_a35c91ec6e2fa6e01ef83222bf219f057}} 
+\index{Lab2.c@{Lab2.c}!ARGUMENT\_LENGTH@{ARGUMENT\_LENGTH}}
+\index{ARGUMENT\_LENGTH@{ARGUMENT\_LENGTH}!Lab2.c@{Lab2.c}}
+\doxysubsubsection{\texorpdfstring{ARGUMENT\_LENGTH}{ARGUMENT\_LENGTH}}
+{\footnotesize\ttfamily \#define ARGUMENT\+\_\+\+LENGTH~32}
+
+\mbox{\Hypertarget{Lab2_8c_ac1b08ec9ef686f8e672f0becf2f80cca}\label{Lab2_8c_ac1b08ec9ef686f8e672f0becf2f80cca}} 
+\index{Lab2.c@{Lab2.c}!FILE\_LENGTH@{FILE\_LENGTH}}
+\index{FILE\_LENGTH@{FILE\_LENGTH}!Lab2.c@{Lab2.c}}
+\doxysubsubsection{\texorpdfstring{FILE\_LENGTH}{FILE\_LENGTH}}
+{\footnotesize\ttfamily \#define FILE\+\_\+\+LENGTH~2048}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Lab2_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{Lab2_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{Lab2.c@{Lab2.c}!main@{main}}
+\index{main@{main}!Lab2.c@{Lab2.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Applications entry point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of external arguments. \\
+\hline
+{\em argv} & Pointers to external arguments. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Termination status. 
+\end{DoxyReturn}
+Use getopt to analyze external arguments.
+
+-\/p Required option. Additional argument -\/ the password.
+
+-\/i Required option. Additional argument -\/ the name of the file to be encrypted.
+
+-\/o Facultative option. Additional argument -\/ the name of the file to store generated data. \char`\"{}encrypted/decrypted\char`\"{} by default.
+
+-\/d Signals that the input data is encrypted and should be decrypted.
+
+Fill buffer with the contents of the file.
+
+Create libakrypt.
+
+Create and set kuznechik key.
+
+Encrypt data using created key.
+
+Write encrypted data to file as a hexadecimal string.
+
+Decrypt data using created key.
+
+Write decrypted data to file.
+
+Destroy context of the key \& libakrypt instance.\mbox{\Hypertarget{Lab2_8c_a779adfc7296cb0ec050ec71273cd509a}\label{Lab2_8c_a779adfc7296cb0ec050ec71273cd509a}} 
+\index{Lab2.c@{Lab2.c}!read\_file@{read\_file}}
+\index{read\_file@{read\_file}!Lab2.c@{Lab2.c}}
+\doxysubsubsection{\texorpdfstring{read\_file()}{read\_file()}}
+{\footnotesize\ttfamily bool read\+\_\+file (\begin{DoxyParamCaption}\item[{char $\ast$}]{buffer,  }\item[{size\+\_\+t}]{buffer\+\_\+size,  }\item[{const char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Reads contents of the file to the buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Buffer, which will be filled with the contents of the file. \\
+\hline
+{\em buffer\+\_\+size} & Size of the buffer. \\
+\hline
+{\em path} & File, from which the buffer will be filled. \\
+\hline
+{\em return} & True, if reading was successful, false otherwise. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Lab2_8c_a38667d56027c898fe01f2853ae6246d1}\label{Lab2_8c_a38667d56027c898fe01f2853ae6246d1}} 
+\index{Lab2.c@{Lab2.c}!write\_file@{write\_file}}
+\index{write\_file@{write\_file}!Lab2.c@{Lab2.c}}
+\doxysubsubsection{\texorpdfstring{write\_file()}{write\_file()}}
+{\footnotesize\ttfamily bool write\+\_\+file (\begin{DoxyParamCaption}\item[{const char $\ast$}]{buffer,  }\item[{size\+\_\+t}]{buffer\+\_\+size,  }\item[{const char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Writes contents of the buffer to the specified file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & Buffer, which will be written to the file. \\
+\hline
+{\em buffer\+\_\+size} & Size of the buffer. \\
+\hline
+{\em path} & File, which will be filled with the contents of the buffer. \\
+\hline
+{\em return} & True, if writing was successful, false otherwise. \\
+\hline
+\end{DoxyParams}

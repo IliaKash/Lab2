@@ -1,0 +1,39 @@
+\begin{theindex}
+
+  \item {ARGUMENT\_LENGTH}
+    \subitem {Lab2.c}, \hyperpage{4}
+
+  \indexspace
+
+  \item {CMakeLists.txt}, \hyperpage{3}
+
+  \indexspace
+
+  \item {FILE\_LENGTH}
+    \subitem {Lab2.c}, \hyperpage{4}
+
+  \indexspace
+
+  \item {Lab2.c}, \hyperpage{3}
+    \subitem {ARGUMENT\_LENGTH}, \hyperpage{4}
+    \subitem {FILE\_LENGTH}, \hyperpage{4}
+    \subitem {main}, \hyperpage{4}
+    \subitem {read\_file}, \hyperpage{5}
+    \subitem {write\_file}, \hyperpage{5}
+
+  \indexspace
+
+  \item {main}
+    \subitem {Lab2.c}, \hyperpage{4}
+
+  \indexspace
+
+  \item {read\_file}
+    \subitem {Lab2.c}, \hyperpage{5}
+
+  \indexspace
+
+  \item {write\_file}
+    \subitem {Lab2.c}, \hyperpage{5}
+
+\end{theindex}
