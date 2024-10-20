@@ -37,24 +37,25 @@ bool write_file(const char *buffer, size_t buffer_size, const char *path) {
 
 /**
  *  \brief Reads contents of the file to the buffer.
- *  Exits, if any errors occur while opening or reading the file.
  *  @param buffer Buffer, which will be filled with the contents of the file.
  *  @param buffer_size Size of the buffer.
  *  @param path File, from which the buffer will be filled.
+ *  @param return True, if reading was successful, false otherwise.
  */
-void read_file(char *buffer, size_t buffer_size, const char *path) {
+bool read_file(char *buffer, size_t buffer_size, const char *path) {
   FILE *file = fopen(path, "rb");
   if (file == NULL) {
     fprintf(stderr, "Error opening file: %s\n", path);
-    exit(EXIT_FAILURE);
+    return false;
   }
   size_t bytes_read = fread(buffer, 1, buffer_size, file);
   if ((bytes_read == 0 && !feof(file)) || ferror(file)) {
     fprintf(stderr, "Error reading file: %s\n", path);
-  fclose(file);
-  exit(EXIT_FAILURE);
+    fclose(file);
+    return false;
   }
   fclose(file);
+  return true;
 }
 
 /**
@@ -117,17 +118,20 @@ int main(int argc, char** argv) {
     return EXIT_FAILURE;
   }
 
+  char fileBuf[FILE_LENGTH];
+  memset(fileBuf, 0, FILE_LENGTH);
+
+  /// Fill buffer with the contents of the file.
+  if(!read_file(fileBuf, FILE_LENGTH, inputFile)) {
+    return EXIT_FAILURE;
+  }
+
   /// Create libakrypt.
   if(ak_libakrypt_create(NULL) != ak_true) {
     ak_libakrypt_destroy();
     return EXIT_FAILURE;
   }
 
-  char fileBuf[FILE_LENGTH];
-  memset(fileBuf, 0, FILE_LENGTH);
-
-  /// Fill buffer with the contents of the file.
-  read_file(fileBuf, FILE_LENGTH, inputFile);
   size_t size = strlen(fileBuf);
 
   /// Create and set kuznechik key.
