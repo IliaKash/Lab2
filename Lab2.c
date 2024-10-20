@@ -64,7 +64,7 @@ void read_file(char *buffer, size_t buffer_size, const char *path) {
  */
 int main(int argc, char** argv) {
   if (argc < 5) {
-    fprintf(stderr, "-p and -f options are required\n");
+    fprintf(stderr, "-p and -i options are required\n");
     return EXIT_FAILURE;
   }
 
@@ -112,7 +112,7 @@ int main(int argc, char** argv) {
     }
   }
   if (passwordFlag || inputFileFlag) {
-    fprintf(stderr, "Either -p or -f were not specified\n");
+    fprintf(stderr, "Either -p or -i were not specified\n");
     return EXIT_FAILURE;
   }
 
